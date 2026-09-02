@@ -13,6 +13,8 @@ import minipascal.lexico.tabela.TabelaPalavrasReservadas;
  */
 public class AnalisadorLexico {
 
+    private static final int TAMANHO_MAXIMO_IDENTIFICADOR = 63;
+
     private final String fonte;
     private final TabelaPalavrasReservadas palavrasReservadas;
     private int pos;
@@ -129,7 +131,8 @@ public class AnalisadorLexico {
         while (pos < fonte.length() && (Character.isLetterOrDigit(fonte.charAt(pos)) || fonte.charAt(pos) == '_')) {
             pos++;
         }
-        String lexema = fonte.substring(inicio, pos);
+        int fim = Math.min(pos, inicio + TAMANHO_MAXIMO_IDENTIFICADOR);
+        String lexema = fonte.substring(inicio, fim);
         TipoToken tipo = palavrasReservadas.buscar(lexema);
         return new Token(lexema, tipo != null ? tipo : TipoToken.IDENTIFICADOR, linhaToken);
     }

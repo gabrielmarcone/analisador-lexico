@@ -32,8 +32,7 @@ public class TabelaPalavrasReservadas {
             tabela.put(palavra, TipoToken.PALAVRA_RESERVADA);
         }
 
-        // div já está na lista oficial de palavras reservadas (item 10);
-        // mod não está, mas é exigido como operador aritmético
+        // operador aritmetico
         tabela.put("mod", TipoToken.OPERADOR_ARITMETICO);
 
         tabela.put("and", TipoToken.OPERADOR_LOGICO);

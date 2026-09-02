@@ -33,8 +33,13 @@ public class VerificacaoFase4 {
         checarToken("Media_das_medias", "Media_das_medias", TipoToken.IDENTIFICADOR);
         checarToken("@", "@", TipoToken.ERRO_LEXICO);
 
+        checarToken("1.a", "1", TipoToken.NUMERO_INTEIRO);
+        checarToken("1.5e", "1.5", TipoToken.NUMERO_REAL);
+        checarToken("1.5e+", "1.5", TipoToken.NUMERO_REAL);
+
         checarSemTokenDeComentario();
         checarNaoConfundeDivisaoComComentario();
+        checarLimiteIdentificador();
         checarProgramaExemplo();
         checarProgramaPiloto();
 
@@ -43,6 +48,20 @@ public class VerificacaoFase4 {
         if (falhas > 0) {
             System.exit(1);
         }
+    }
+
+    private static void checarLimiteIdentificador() {
+        StringBuilder nome = new StringBuilder();
+        for (int i = 0; i < 70; i++) {
+            nome.append('a');
+        }
+        AnalisadorLexico lexer = new AnalisadorLexico(nome + ";");
+        Token t1 = lexer.proximoToken();
+        Token t2 = lexer.proximoToken();
+        checar("identificador de 70 caracteres deve ser truncado para 63",
+                t1 != null && t1.getLexema().length() == 63);
+        checar("depois do identificador longo, próximo token é ';' (nada sobrou pra trás)",
+                t2 != null && t2.getLexema().equals(";"));
     }
 
     private static void checarSemTokenDeComentario() {
