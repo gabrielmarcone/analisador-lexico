@@ -21,6 +21,10 @@ public class VerificacaoFase3 {
 
         checar("'div' deve ser Palavra reservada",
                 tabela.buscar("div") == TipoToken.PALAVRA_RESERVADA);
+        checar("'Program' (maiúscula) também deve ser Palavra reservada",
+                tabela.buscar("Program") == TipoToken.PALAVRA_RESERVADA);
+        checar("'PROGRAM' (tudo maiúsculo) também deve ser Palavra reservada",
+                tabela.buscar("PROGRAM") == TipoToken.PALAVRA_RESERVADA);
 
         checar("'mod' deve ser Operador aritmetico",
                 tabela.buscar("mod") == TipoToken.OPERADOR_ARITMETICO);

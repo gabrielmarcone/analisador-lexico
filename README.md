@@ -7,7 +7,7 @@ Trabalho da Unidade I. Java 8 + JavaFX embutido.
 - [x] Fase 3 — `model` (`Token`, `TipoToken`) e `tabela` (`TabelaPalavrasReservadas`)
 - [x] Fase 4 — núcleo do lexer (`AnalisadorLexico`)
 - [x] Fase 5 — comentários e erros léxicos
-- [ ] Fase 6 — leitura/escrita de arquivos
+- [x] Fase 6 — leitura/escrita de arquivos (`io`, `Main`)
 - [ ] Fase 7 — interface JavaFX
 - [ ] Fase 8 — testes finais e documentação
 
@@ -17,12 +17,41 @@ Trabalho da Unidade I. Java 8 + JavaFX embutido.
 2. Quando a IDE perguntar sobre o SDK do projeto, aponte para um **JDK 8**
 3. Marque a pasta `src` como *Sources Root* (botão direito > Mark Directory as > Sources Root)
 
-## Como compilar/rodar pelo terminal (sem IDE)
+## Como compilar (sem IDE)
 
 ```bash
 javac --release 8 -encoding UTF-8 -d out $(find src -name "*.java")
-java -cp out minipascal.lexico.verificacao.VerificacaoFase3
 ```
+No PowerShell, troque o `$(find ...)` por:
+```powershell
+javac --release 8 -encoding UTF-8 -d out (Get-ChildItem -Path src -Recurse -Filter *.java).FullName
+```
+
+## Como rodar os testes (ainda sem UI)
+
+Cada fase tem uma classe de verificação própria, sem depender de JUnit — roda e imprime
+`[OK]`/`[FALHA]` linha a linha, com um resumo no final:
+
+```bash
+java -cp out minipascal.lexico.verificacao.VerificacaoFase3
+java -cp out minipascal.lexico.verificacao.VerificacaoFase4
+java -cp out minipascal.lexico.verificacao.VerificacaoFase5
+java -cp out minipascal.lexico.verificacao.VerificacaoFase6
+```
+Se algum teste falhar, o programa termina com código de saída 1 (útil pra script/CI depois).
+
+## Como rodar o analisador de verdade contra um arquivo
+
+```bash
+java -cp out minipascal.lexico.Main testes-integracao/entrada/01_programa_simples.txt
+```
+Isso gera `testes-integracao/entrada/01_programa_simples_saida.txt` (mesmo nome + `_saida`).
+Pra escolher o nome do arquivo de saída, passe como segundo argumento:
+```bash
+java -cp out minipascal.lexico.Main caminho/entrada.txt caminho/saida.txt
+```
+Os dois arquivos em `testes-integracao/entrada/` são os exemplos do próprio enunciado — a
+saída do primeiro já foi conferida byte a byte contra o texto exato que o professor deu.
 
 ## Setup do Git (primeira vez)
 
@@ -36,22 +65,16 @@ git remote add origin <URL_DO_REPOSITORIO_NO_GITHUB>
 git push -u origin main
 ```
 
-A partir daqui, sigam o fluxo de branches descrito no documento de planejamento (seção 9):
-`git checkout -b feature/04-lexer-core` para a próxima fase.
+A partir daqui, sigam o fluxo de branches descrito no documento de planejamento (seção 9).
 
 ## Nota sobre encoding
 
-Os textos dos tokens têm acento (`"Número real"`, `"Atribuição"`...). Ao implementar a Fase 6
-(I/O), leiam e escrevam os arquivos **sempre em UTF-8 explícito** — nunca dependam do charset
-default da plataforma:
-
-```java
-new InputStreamReader(new FileInputStream(arquivo), StandardCharsets.UTF_8);
-new OutputStreamWriter(new FileOutputStream(arquivo), StandardCharsets.UTF_8);
-```
+Os textos dos tokens têm acento (`"Número real"`, `"Atribuição"`...). `LeitorArquivoFonte` e
+`EscritorArquivoSaida` já leem/escrevem sempre em UTF-8 explícito — não dependem do charset
+default da plataforma.
 
 ## Próximo passo
 
-Implementar `io/LeitorArquivoFonte.java` e `io/EscritorArquivoSaida.java` (Fase 6): ler o
-`.txt` de entrada, chamar `AnalisadorLexico.proximoToken()` em loop até `null`, e escrever
-o par `<lexema, token>` por linha no arquivo de saída, sempre em UTF-8 explícito.
+Fase 7 — interface JavaFX (`gui/MainApp.java`, `gui/AnalisadorController.java`): tela com
+botão de carregar arquivo, executar, exibir resultado e salvar saída, chamando a mesma
+camada `io`/`core` que já existe hoje.

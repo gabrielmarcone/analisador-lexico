@@ -41,7 +41,7 @@ public class TabelaPalavrasReservadas {
     }
 
     public TipoToken buscar(String lexema) {
-        return tabela.get(lexema);
+        return tabela.get(lexema.toLowerCase());
     }
 
     public boolean contem(String lexema) {
