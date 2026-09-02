@@ -1,0 +1,21 @@
+# Compilados
+*.class
+/out/
+/bin/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# NetBeans
+/nbproject/private/
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
