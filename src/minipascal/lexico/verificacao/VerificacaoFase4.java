@@ -3,6 +3,7 @@ package minipascal.lexico.verificacao;
 import minipascal.lexico.core.AnalisadorLexico;
 import minipascal.lexico.model.Token;
 import minipascal.lexico.model.TipoToken;
+import minipascal.lexico.tabela.TabelaPalavrasReservadas;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.List;
  * programas de exemplo do enunciado, sem JUnit.
  */
 public class VerificacaoFase4 {
+
+    private static final TabelaPalavrasReservadas TABELA = new TabelaPalavrasReservadas();
 
     private static int total = 0;
     private static int falhas = 0;
@@ -55,7 +58,7 @@ public class VerificacaoFase4 {
         for (int i = 0; i < 70; i++) {
             nome.append('a');
         }
-        AnalisadorLexico lexer = new AnalisadorLexico(nome + ";");
+        AnalisadorLexico lexer = new AnalisadorLexico(nome + ";", TABELA);
         Token t1 = lexer.proximoToken();
         Token t2 = lexer.proximoToken();
         checar("identificador de 70 caracteres deve ser truncado para 63",
@@ -65,14 +68,14 @@ public class VerificacaoFase4 {
     }
 
     private static void checarSemTokenDeComentario() {
-        AnalisadorLexico lexer = new AnalisadorLexico("/* comentario */ x");
+        AnalisadorLexico lexer = new AnalisadorLexico("/* comentario */ x", TABELA);
         Token t = lexer.proximoToken();
         checar("comentário não deve gerar token, primeiro token é 'x'",
                 t != null && t.getLexema().equals("x"));
     }
 
     private static void checarNaoConfundeDivisaoComComentario() {
-        AnalisadorLexico lexer = new AnalisadorLexico("a/2");
+        AnalisadorLexico lexer = new AnalisadorLexico("a/2", TABELA);
         lexer.proximoToken(); // "a"
         Token divisao = lexer.proximoToken();
         checar("'/' sem '*' na frente deve ser Operador aritmetico",
@@ -96,7 +99,7 @@ public class VerificacaoFase4 {
                 "end.\n";
 
         List<Token> tokens = new ArrayList<>();
-        AnalisadorLexico lexer = new AnalisadorLexico(programa);
+        AnalisadorLexico lexer = new AnalisadorLexico(programa, TABELA);
         Token t;
         while ((t = lexer.proximoToken()) != null) {
             tokens.add(t);
@@ -142,7 +145,7 @@ public class VerificacaoFase4 {
                 "end.\n";
 
         List<Token> tokens = new ArrayList<>();
-        AnalisadorLexico lexer = new AnalisadorLexico(programa);
+        AnalisadorLexico lexer = new AnalisadorLexico(programa, TABELA);
         Token t;
         while ((t = lexer.proximoToken()) != null) {
             tokens.add(t);
@@ -161,7 +164,7 @@ public class VerificacaoFase4 {
     }
 
     private static void checarToken(String entrada, String lexemaEsperado, TipoToken tipoEsperado) {
-        AnalisadorLexico lexer = new AnalisadorLexico(entrada);
+        AnalisadorLexico lexer = new AnalisadorLexico(entrada, TABELA);
         Token t = lexer.proximoToken();
         boolean ok = t != null && t.getLexema().equals(lexemaEsperado) && t.getTipo() == tipoEsperado;
         checar("'" + entrada + "' -> " + lexemaEsperado + " / " + tipoEsperado, ok);
