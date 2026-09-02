@@ -5,10 +5,8 @@ import minipascal.lexico.model.TipoToken;
 import minipascal.lexico.tabela.TabelaPalavrasReservadas;
 
 /**
- * Verificação manual da Fase 3 (model + tabela), sem depender de JUnit —
- * útil só neste momento inicial, antes de configurar JUnit na IDE. Depois
- * que os testes JUnit de verdade existirem (Fase 8), esta classe pode ser
- * apagada.
+ * Verificação manual da Fase 3, sem JUnit — dá pra apagar quando os testes
+ * de verdade estiverem configurados na IDE.
  */
 public class VerificacaoFase3 {
 
@@ -18,19 +16,15 @@ public class VerificacaoFase3 {
     public static void main(String[] args) {
         TabelaPalavrasReservadas tabela = new TabelaPalavrasReservadas();
 
-        // 1) Palavra reservada oficial
         checar("'program' deve ser Palavra reservada",
                 tabela.buscar("program") == TipoToken.PALAVRA_RESERVADA);
 
-        // 2) 'div' está na lista oficial -> Palavra reservada (correção feita)
-        checar("'div' deve ser Palavra reservada (está no item 10)",
+        checar("'div' deve ser Palavra reservada",
                 tabela.buscar("div") == TipoToken.PALAVRA_RESERVADA);
 
-        // 3) 'mod' NÃO está na lista oficial -> Operador aritmético
-        checar("'mod' deve ser Operador aritmetico (não está no item 10)",
+        checar("'mod' deve ser Operador aritmetico",
                 tabela.buscar("mod") == TipoToken.OPERADOR_ARITMETICO);
 
-        // 4) Operadores lógicos
         checar("'and' deve ser Operador logico",
                 tabela.buscar("and") == TipoToken.OPERADOR_LOGICO);
         checar("'or' deve ser Operador logico",
@@ -38,20 +32,14 @@ public class VerificacaoFase3 {
         checar("'not' deve ser Operador logico",
                 tabela.buscar("not") == TipoToken.OPERADOR_LOGICO);
 
-        // 5) Palavra fora da tabela -> null (o lexer trataria como Identificador)
-        checar("'total' (identificador comum) deve retornar null",
+        checar("'total' deve retornar null (não é reservada)",
                 tabela.buscar("total") == null);
-
-        // 6) 'Media_das_medias' (variação de caixa) não deve casar, já que
-        //    a tabela é case-sensitive e a palavra não é reservada mesmo
-        checar("'Media_das_medias' deve retornar null (é identificador)",
+        checar("'Media_das_medias' deve retornar null (não é reservada)",
                 tabela.buscar("Media_das_medias") == null);
 
-        // 7) Contagem: 48 palavras da lista oficial + mod + and + or + not = 52
-        checar("tabela deve ter 52 entradas (48 reservadas + mod + and + or + not)",
+        checar("tabela deve ter 52 entradas",
                 tabela.tamanho() == 52);
 
-        // 8) Formatação de Token — deve bater com o formato do exemplo do professor
         Token t = new Token("program", TipoToken.PALAVRA_RESERVADA, 1);
         checar("Token.toString() deve ser 'program\\tPalavra reservada'",
                 t.toString().equals("program\tPalavra reservada"));
