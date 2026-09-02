@@ -22,9 +22,9 @@ public class AnalisadorLexico {
     private boolean comentarioNaoFechado;
     private int linhaComentarioNaoFechado;
 
-    public AnalisadorLexico(String fonte) {
+    public AnalisadorLexico(String fonte, TabelaPalavrasReservadas palavrasReservadas) {
         this.fonte = fonte;
-        this.palavrasReservadas = new TabelaPalavrasReservadas();
+        this.palavrasReservadas = palavrasReservadas;
         this.pos = 0;
         this.linha = 1;
     }

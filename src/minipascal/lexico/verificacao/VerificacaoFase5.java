@@ -3,6 +3,7 @@ package minipascal.lexico.verificacao;
 import minipascal.lexico.core.AnalisadorLexico;
 import minipascal.lexico.model.Token;
 import minipascal.lexico.model.TipoToken;
+import minipascal.lexico.tabela.TabelaPalavrasReservadas;
 
 /**
  * Foca em comentários e erros léxicos: casos que a Fase 4 já cobria em
@@ -10,6 +11,8 @@ import minipascal.lexico.model.TipoToken;
  * string/char sem fechamento, sequência de erros seguida de código válido).
  */
 public class VerificacaoFase5 {
+
+    private static final TabelaPalavrasReservadas TABELA = new TabelaPalavrasReservadas();
 
     private static int total = 0;
     private static int falhas = 0;
@@ -30,7 +33,7 @@ public class VerificacaoFase5 {
     }
 
     private static void checarComentarioNaoFechado() {
-        AnalisadorLexico lexer = new AnalisadorLexico("x\n/* comentario sem fechar\ny");
+        AnalisadorLexico lexer = new AnalisadorLexico("x\n/* comentario sem fechar\ny", TABELA);
         lexer.proximoToken(); // "x"
         Token erro = lexer.proximoToken();
         checar("comentário sem '*/' deve gerar Erro lexico",
@@ -40,28 +43,28 @@ public class VerificacaoFase5 {
     }
 
     private static void checarComentarioFechadoNormalmenteAindaFunciona() {
-        AnalisadorLexico lexer = new AnalisadorLexico("/* ok */ x");
+        AnalisadorLexico lexer = new AnalisadorLexico("/* ok */ x", TABELA);
         Token t = lexer.proximoToken();
         checar("comentário fechado normalmente continua sem gerar token",
                 t != null && t.getLexema().equals("x"));
     }
 
     private static void checarStringNaoFechada() {
-        AnalisadorLexico lexer = new AnalisadorLexico("\"abc");
+        AnalisadorLexico lexer = new AnalisadorLexico("\"abc", TABELA);
         Token t = lexer.proximoToken();
         checar("string sem aspas de fechamento deve gerar Erro lexico",
                 t != null && t.getTipo() == TipoToken.ERRO_LEXICO);
     }
 
     private static void checarCharNaoFechado() {
-        AnalisadorLexico lexer = new AnalisadorLexico("'a");
+        AnalisadorLexico lexer = new AnalisadorLexico("'a", TABELA);
         Token t = lexer.proximoToken();
         checar("char sem aspa de fechamento deve gerar Erro lexico",
                 t != null && t.getTipo() == TipoToken.ERRO_LEXICO);
     }
 
     private static void checarErroNaoTravaOScanner() {
-        AnalisadorLexico lexer = new AnalisadorLexico("@ # x");
+        AnalisadorLexico lexer = new AnalisadorLexico("@ # x", TABELA);
         Token t1 = lexer.proximoToken();
         Token t2 = lexer.proximoToken();
         Token t3 = lexer.proximoToken();
@@ -74,7 +77,7 @@ public class VerificacaoFase5 {
     }
 
     private static void checarLinhaDoErroDeComentario() {
-        AnalisadorLexico lexer = new AnalisadorLexico("a\nb\n/* nunca fecha");
+        AnalisadorLexico lexer = new AnalisadorLexico("a\nb\n/* nunca fecha", TABELA);
         lexer.proximoToken();
         lexer.proximoToken();
         Token erro = lexer.proximoToken();
