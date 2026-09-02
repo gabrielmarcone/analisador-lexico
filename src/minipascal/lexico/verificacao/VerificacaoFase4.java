@@ -161,6 +161,8 @@ public class VerificacaoFase4 {
                 tokens.stream().anyMatch(tok -> tok.getLexema().equals("2.0") && tok.getTipo() == TipoToken.NUMERO_REAL));
         checar("último token deve ser Fim",
                 tokens.get(tokens.size() - 1).getTipo() == TipoToken.FIM);
+        checar("'Program' (maiúsculo) deve ser Palavra reservada",
+                tokens.get(0).getLexema().equals("Program") && tokens.get(0).getTipo() == TipoToken.PALAVRA_RESERVADA);
     }
 
     private static void checarToken(String entrada, String lexemaEsperado, TipoToken tipoEsperado) {
