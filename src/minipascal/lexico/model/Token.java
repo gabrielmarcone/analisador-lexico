@@ -1,11 +1,7 @@
 package minipascal.lexico.model;
 
 /**
- * Representa um par (lexema, token) reconhecido pelo analisador léxico,
- * junto com o número da linha onde foi encontrado (útil para mensagens de
- * erro e, mais adiante, para o analisador sintático da Unidade II).
- *
- * Classe imutável de propósito: uma vez reconhecido, um Token não muda.
+ * Par lexema/token reconhecido pelo analisador, com a linha de origem.
  */
 public class Token {
 
@@ -31,11 +27,6 @@ public class Token {
         return linha;
     }
 
-    /**
-     * Formato de uma linha do arquivo de saída: "<lexema>\t<token>",
-     * igual ao exemplo do professor (uma coluna de lexema, uma de token,
-     * separadas por espaço/tab).
-     */
     @Override
     public String toString() {
         return lexema + "\t" + tipo.getDescricao();
