@@ -192,16 +192,19 @@ public class AnalisadorLexico {
         }
     }
 
+    // Strings da linguagem são sempre de uma linha só (nenhum exemplo do
+    // enunciado mostra string multi-linha). Por isso, se não fechar antes
+    // de uma quebra de linha, paramos ali — sem consumir o '\n' — e
+    // devolvemos o controle pro scanner normal, que trata a quebra de
+    // linha como não-significativa e segue tokenizando o resto do arquivo.
+    // Isso evita que uma aspa esquecida engula o programa inteiro até o EOF.
     private Token lerString(int linhaToken) {
         int inicio = pos;
         pos++;
-        while (pos < fonte.length() && fonte.charAt(pos) != '"') {
-            if (fonte.charAt(pos) == '\n') {
-                linha++;
-            }
+        while (pos < fonte.length() && fonte.charAt(pos) != '"' && fonte.charAt(pos) != '\n') {
             pos++;
         }
-        boolean fechada = pos < fonte.length();
+        boolean fechada = pos < fonte.length() && fonte.charAt(pos) == '"';
         if (fechada) {
             pos++;
         }
@@ -209,13 +212,17 @@ public class AnalisadorLexico {
         return new Token(lexema, fechada ? TipoToken.CONSTANTE_STRING : TipoToken.ERRO_LEXICO, linhaToken);
     }
 
+    // Constante char precisa ter exatamente 1 caractere entre aspas simples.
+    // "''" (vazio) e "'ab'" (mais de um) devem ser rejeitados como erro —
+    // só "'x'" é válido.
     private Token lerChar(int linhaToken) {
         int inicio = pos;
         pos++;
-        if (pos < fonte.length() && fonte.charAt(pos) != '\'') {
+        boolean temUmCaractere = pos < fonte.length() && fonte.charAt(pos) != '\'' && fonte.charAt(pos) != '\n';
+        if (temUmCaractere) {
             pos++;
         }
-        boolean fechado = pos < fonte.length() && fonte.charAt(pos) == '\'';
+        boolean fechado = temUmCaractere && pos < fonte.length() && fonte.charAt(pos) == '\'';
         if (fechado) {
             pos++;
         }
