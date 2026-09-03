@@ -10,8 +10,14 @@ import java.nio.file.Paths;
  */
 public class LeitorArquivoFonte {
 
+    private static final char BOM = '\uFEFF';
+
     public static String ler(String caminho) throws IOException {
         byte[] bytes = Files.readAllBytes(Paths.get(caminho));
-        return new String(bytes, StandardCharsets.UTF_8);
+        String conteudo = new String(bytes, StandardCharsets.UTF_8);
+        if (!conteudo.isEmpty() && conteudo.charAt(0) == BOM) {
+            conteudo = conteudo.substring(1);
+        }
+        return conteudo;
     }
 }

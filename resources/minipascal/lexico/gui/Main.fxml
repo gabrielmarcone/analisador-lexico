@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="700" prefWidth="1000" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minipascal.lexico.gui.AnalisadorController">
+
+    <top>
+        <VBox>
+            <children>
+                <VBox spacing="4" styleClass="header">
+                    <padding><Insets bottom="18" left="20" right="20" top="18" /></padding>
+                    <children>
+                        <Label styleClass="titulo-principal" text="TokenFlow - Analisador Léxico Mini_Pascal" />
+                    </children>
+                </VBox>
+                <HBox alignment="CENTER_LEFT" spacing="12" styleClass="toolbar">
+                    <padding><Insets bottom="10" left="20" right="20" top="10" /></padding>
+                    <children>
+                        <Button fx:id="btnAbrirArquivo" onAction="#abrirArquivo" text="📁  Abrir Arquivo" />
+                        <Label fx:id="labelArquivoAtual" styleClass="label-arquivo" text="(nenhum arquivo carregado)" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button fx:id="btnExecutar" disable="true" onAction="#executarAnalise" styleClass="botao-destaque" text="▶  Executar Análise" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </top>
+
+    <center>
+        <SplitPane dividerPositions="0.75" orientation="VERTICAL">
+            <items>
+                <SplitPane fx:id="splitPrincipal" dividerPositions="0.45" styleClass="split-principal">
+                    <items>
+                        <VBox styleClass="painel">
+                            <children>
+                                <Label styleClass="titulo-painel" text="Código-Fonte" />
+                                <TextArea fx:id="areaCodigoFonte" editable="false" styleClass="codigo-fonte" wrapText="false" VBox.vgrow="ALWAYS" />
+                            </children>
+                        </VBox>
+                        <VBox styleClass="painel">
+                            <children>
+                                <Label styleClass="titulo-painel" text="Fluxo de Tokens" />
+                                <TableView fx:id="tabelaTokens" VBox.vgrow="ALWAYS">
+                                    <columns>
+                                        <TableColumn fx:id="colNumero" prefWidth="40" text="#" />
+                                        <TableColumn fx:id="colLexema" prefWidth="150" text="Lexema" />
+                                        <TableColumn fx:id="colTipo" prefWidth="180" text="Tipo" />
+                                        <TableColumn fx:id="colLinha" prefWidth="60" text="Linha" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </VBox>
+                    </items>
+                </SplitPane>
+                <VBox spacing="4" styleClass="painel-erros">
+                    <padding><Insets bottom="8" left="20" right="20" top="8" /></padding>
+                    <children>
+                        <Label styleClass="titulo-painel" text="Erros Léxicos" />
+                        <TableView fx:id="tabelaErros" prefHeight="120">
+                            <columns>
+                                <TableColumn fx:id="colErroLinha" prefWidth="60" text="Linha" />
+                                <TableColumn fx:id="colErroLexema" prefWidth="120" text="Lexema" />
+                                <TableColumn fx:id="colErroDescricao" prefWidth="250" text="Descrição" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </VBox>
+            </items>
+        </SplitPane>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER_LEFT" spacing="24" styleClass="status-bar">
+            <padding><Insets bottom="8" left="20" right="20" top="8" /></padding>
+            <children>
+                <Label fx:id="labelContagemTokens" text="Tokens: 0" />
+                <Label fx:id="labelContagemErros" text="Erros: 0" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="labelStatus" text="Aguardando arquivo..." />
+                <Button fx:id="btnSalvarSaida" disable="true" onAction="#salvarSaida" styleClass="botao-destaque" text="💾  Salvar Resultado" />
+            </children>
+        </HBox>
+    </bottom>
+
+</BorderPane>
