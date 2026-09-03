@@ -1,95 +1,146 @@
 /* ============ BASE ============ */
 
 .root {
-    -fx-background-color: #0a0e0f;
-    -fx-font-family: "Consolas", "Courier New", monospace;
+    -fx-background-color: linear-gradient(to bottom, #eaf7fd 0%, #bfe4f5 45%, #7fc9e8 100%);
+    -fx-font-family: "Segoe UI", "Verdana", sans-serif;
     -fx-font-size: 13px;
 }
 
 .label {
-    -fx-text-fill: #c9d6d4;
+    -fx-text-fill: #0c3a52;
 }
 
 /* ============ CABEÇALHO ============ */
 
 .header {
-    -fx-background-color: #0a0e0f;
-    -fx-border-color: transparent transparent #1a5c2e transparent;
-    -fx-border-width: 0 0 1 0;
+    -fx-background-color:
+        linear-gradient(to bottom, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.0) 100%),
+        linear-gradient(to bottom, #3fa9e8 0%, #1c74b0 100%);
+    -fx-effect: dropshadow(gaussian, rgba(0,20,40,0.35), 6, 0.2, 0, 2);
 }
 
 .titulo-principal {
-    -fx-text-fill: #33ff66;
-    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-font-size: 21px;
     -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,40,70,0.6), 2, 0.4, 0, 1);
 }
 
 .titulo-secundario {
-    -fx-text-fill: #6b8078;
-    -fx-font-size: 12px;
+    -fx-text-fill: #dff3ff;
+    -fx-font-size: 11px;
     -fx-letter-spacing: 2px;
 }
 
 /* ============ TOOLBAR ============ */
 
 .toolbar {
-    -fx-background-color: #10161a;
-    -fx-border-color: transparent transparent #1a5c2e transparent;
+    -fx-background-color: linear-gradient(to bottom, #eaf8fd 0%, #cdeefb 100%);
+    -fx-border-color: transparent transparent #8fd0ea transparent;
     -fx-border-width: 0 0 1 0;
 }
 
 .label-arquivo {
-    -fx-text-fill: #6b8078;
+    -fx-text-fill: #4e7a90;
     -fx-font-style: italic;
 }
 
-/* ============ BOTÕES ============ */
+/* ============ BOTÕES — efeito vidro/pílula ============ */
 
 .button {
-    -fx-background-color: #10161a;
-    -fx-text-fill: #33ff66;
-    -fx-border-color: #1a5c2e;
+    -fx-background-color:
+        linear-gradient(to bottom, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.05) 55%, rgba(255,255,255,0.0) 100%),
+        linear-gradient(to bottom, #6fc6ef 0%, #1f8fd6 55%, #1670ab 100%);
+    -fx-background-radius: 999, 999;
+    -fx-background-insets: 0 0 50% 0, 0;
+    -fx-border-color: #0e5a8c;
     -fx-border-width: 1px;
-    -fx-background-radius: 0;
-    -fx-border-radius: 0;
-    -fx-font-family: "Consolas", "Courier New", monospace;
+    -fx-border-radius: 999;
+    -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-padding: 6 16 6 16;
+    -fx-padding: 8 20 8 20;
     -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(10,60,90,0.35), 5, 0.15, 0, 2);
 }
 
 .button:hover {
-    -fx-background-color: #16241c;
-    -fx-border-color: #33ff66;
+    -fx-background-color:
+        linear-gradient(to bottom, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.1) 55%, rgba(255,255,255,0.0) 100%),
+        linear-gradient(to bottom, #86d4f5 0%, #2b9de0 55%, #1a7ec0 100%);
+    -fx-background-radius: 999, 999;
+    -fx-background-insets: 0 0 50% 0, 0;
 }
 
 .button:pressed {
-    -fx-background-color: #1a5c2e;
-    -fx-text-fill: #0a0e0f;
+    -fx-background-color:
+        linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 100%),
+        linear-gradient(to bottom, #12608f 0%, #0d4a70 100%);
+    -fx-background-radius: 999, 999;
+    -fx-background-insets: 0, 0;
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.4), 4, 0.3, 0, 1);
 }
 
 .button:disabled {
-    -fx-text-fill: #4a5550;
-    -fx-border-color: #2a3530;
-    -fx-opacity: 0.6;
+    -fx-opacity: 0.45;
     -fx-cursor: default;
+    -fx-effect: none;
+}
+
+/* Botão de ação principal (Executar análise, Salvar) — vidro verde */
+.botao-destaque {
+    -fx-background-color:
+        linear-gradient(to bottom, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.05) 55%, rgba(255,255,255,0.0) 100%),
+        linear-gradient(to bottom, #7be0a8 0%, #2aa876 55%, #17864f 100%);
+    -fx-background-radius: 999, 999;
+    -fx-background-insets: 0 0 50% 0, 0;
+    -fx-border-color: #0f6a44;
+    -fx-border-width: 1px;
+    -fx-border-radius: 999;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8 22 8 22;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(10,60,40,0.35), 5, 0.15, 0, 2);
+}
+
+.botao-destaque:hover {
+    -fx-background-color:
+        linear-gradient(to bottom, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.1) 55%, rgba(255,255,255,0.0) 100%),
+        linear-gradient(to bottom, #93ecba 0%, #33bb85 55%, #1a9058 100%);
+    -fx-background-radius: 999, 999;
+    -fx-background-insets: 0 0 50% 0, 0;
+}
+
+.botao-destaque:pressed {
+    -fx-background-color:
+        linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 100%),
+        linear-gradient(to bottom, #146a45 0%, #0c4c32 100%);
+    -fx-background-radius: 999, 999;
+    -fx-background-insets: 0, 0;
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.4), 4, 0.3, 0, 1);
+}
+
+.botao-destaque:disabled {
+    -fx-opacity: 0.45;
+    -fx-cursor: default;
+    -fx-effect: none;
 }
 
 /* ============ PAINÉIS (CÓDIGO / TOKENS / ERROS) ============ */
 
 .painel {
-    -fx-background-color: #0a0e0f;
-    -fx-padding: 8;
+    -fx-background-color: linear-gradient(to bottom, rgba(255,255,255,0.55), rgba(255,255,255,0.15));
+    -fx-padding: 12;
 }
 
 .painel-erros {
-    -fx-background-color: #0a0e0f;
-    -fx-border-color: #1a5c2e transparent transparent transparent;
+    -fx-background-color: linear-gradient(to bottom, rgba(255,255,255,0.5), rgba(255,255,255,0.2));
+    -fx-border-color: #8fd0ea transparent transparent transparent;
     -fx-border-width: 1 0 0 0;
 }
 
 .titulo-painel {
-    -fx-text-fill: #6b8078;
+    -fx-text-fill: #0c5a82;
     -fx-font-size: 11px;
     -fx-font-weight: bold;
     -fx-letter-spacing: 1px;
@@ -97,94 +148,100 @@
 }
 
 .split-principal {
-    -fx-background-color: #0a0e0f;
+    -fx-background-color: transparent;
 }
 
 /* ============ ÁREA DE CÓDIGO ============ */
 
 .codigo-fonte {
-    -fx-control-inner-background: #10161a;
-    -fx-text-fill: #c9d6d4;
+    -fx-control-inner-background: rgba(255,255,255,0.6);
+    -fx-text-fill: #0c3a52;
     -fx-font-family: "Consolas", "Courier New", monospace;
     -fx-font-size: 13px;
-    -fx-border-color: #1a5c2e;
+    -fx-background-radius: 10;
+    -fx-border-color: #8fd0ea;
     -fx-border-width: 1px;
-    -fx-highlight-fill: #1a5c2e;
-    -fx-highlight-text-fill: #33ff66;
+    -fx-border-radius: 10;
+    -fx-highlight-fill: #ffcf5c;
+    -fx-highlight-text-fill: #0c3a52;
 }
 
 /* ============ TABELAS (TOKENS E ERROS) ============ */
 
 .table-view {
-    -fx-background-color: #10161a;
-    -fx-border-color: #1a5c2e;
+    -fx-background-color: linear-gradient(to bottom, rgba(255,255,255,0.7), rgba(255,255,255,0.3));
+    -fx-background-radius: 12;
+    -fx-border-color: #8fd0ea;
     -fx-border-width: 1px;
-    -fx-table-cell-border-color: #1a2620;
+    -fx-border-radius: 12;
+    -fx-table-cell-border-color: rgba(143,208,234,0.35);
+    -fx-effect: dropshadow(gaussian, rgba(10,60,90,0.15), 5, 0.1, 0, 2);
 }
 
 .table-view .column-header-background {
-    -fx-background-color: #0a0e0f;
+    -fx-background-color: linear-gradient(to bottom, #eaf8fd, #b8e4f5);
+    -fx-background-radius: 12 12 0 0;
 }
 
 .table-view .column-header,
 .table-view .filler {
-    -fx-background-color: #0a0e0f;
-    -fx-border-color: transparent transparent #1a5c2e transparent;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent #8fd0ea transparent;
     -fx-border-width: 0 0 1 0;
 }
 
 .table-view .column-header .label {
-    -fx-text-fill: #33ff66;
+    -fx-text-fill: #0c5a82;
     -fx-font-weight: bold;
     -fx-font-size: 11px;
 }
 
 .table-row-cell {
-    -fx-background-color: #10161a;
-    -fx-text-fill: #c9d6d4;
+    -fx-background-color: transparent;
+    -fx-text-fill: #0c3a52;
 }
 
 .table-row-cell:odd {
-    -fx-background-color: #0d1214;
+    -fx-background-color: rgba(191,228,245,0.4);
 }
 
 .table-row-cell:selected {
-    -fx-background-color: #1a5c2e;
+    -fx-background-color: linear-gradient(to bottom, #ffe9a8, #ffcf5c);
 }
 
 .table-row-cell:selected .table-cell {
-    -fx-text-fill: #0a0e0f;
+    -fx-text-fill: #5a3d00;
 }
 
 .table-cell {
-    -fx-text-fill: #c9d6d4;
+    -fx-text-fill: #0c3a52;
     -fx-font-family: "Consolas", "Courier New", monospace;
 }
 
-/* Tabela de erros: mesma base, mas texto em vermelho para chamar atenção */
+/* Tabela de erros: mesma base, tom avermelhado pra chamar atenção */
 
 #tabelaErros .table-cell {
-    -fx-text-fill: #ff8080;
-}
-
-#tabelaErros .table-row-cell:odd {
-    -fx-background-color: #170d0d;
+    -fx-text-fill: #b02a2a;
 }
 
 #tabelaErros .table-row-cell {
-    -fx-background-color: #1a1010;
+    -fx-background-color: rgba(255,150,150,0.18);
+}
+
+#tabelaErros .table-row-cell:odd {
+    -fx-background-color: rgba(255,150,150,0.3);
 }
 
 /* ============ STATUS BAR ============ */
 
 .status-bar {
-    -fx-background-color: #10161a;
-    -fx-border-color: #1a5c2e transparent transparent transparent;
+    -fx-background-color: linear-gradient(to bottom, rgba(255,255,255,0.65), rgba(191,228,245,0.9));
+    -fx-border-color: #8fd0ea transparent transparent transparent;
     -fx-border-width: 1 0 0 0;
 }
 
 .status-bar .label {
-    -fx-text-fill: #33ff66;
+    -fx-text-fill: #0c5a82;
     -fx-font-size: 12px;
     -fx-font-weight: bold;
 }
@@ -192,10 +249,10 @@
 /* ============ DIVISOR DO SPLITPANE ============ */
 
 .split-pane {
-    -fx-background-color: #0a0e0f;
+    -fx-background-color: transparent;
 }
 
 .split-pane-divider {
-    -fx-background-color: #1a5c2e;
+    -fx-background-color: #8fd0ea;
     -fx-padding: 0 1 0 1;
 }

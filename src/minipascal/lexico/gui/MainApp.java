@@ -19,7 +19,7 @@ public class MainApp extends Application {
         Scene scene = new Scene(root, 1000, 700);
         scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
-        stage.setTitle("MINIPASCAL LEXICAL ANALYZER — Compiler Lab");
+        stage.setTitle("Token Flow - Analisador Léxico");
         stage.setScene(scene);
         stage.setMinWidth(900);
         stage.setMinHeight(600);
