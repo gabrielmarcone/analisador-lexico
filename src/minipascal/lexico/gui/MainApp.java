@@ -2,6 +2,7 @@ package minipascal.lexico.gui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.image.Image;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -20,6 +21,7 @@ public class MainApp extends Application {
         scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
         stage.setTitle("Token Flow - Analisador Léxico");
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         stage.setScene(scene);
         stage.setMinWidth(900);
         stage.setMinHeight(600);
