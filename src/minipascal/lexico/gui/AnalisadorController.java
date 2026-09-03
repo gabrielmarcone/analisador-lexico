@@ -48,13 +48,20 @@ public class AnalisadorController implements Initializable {
     @FXML private Label labelStatus;
     @FXML private Button btnSalvarSaida;
 
-    private String fonteAtual;
+    private String nomeArquivoCarregado;
     private ObservableList<Token> ultimosTokens;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         configurarColunas(colNumero, colLexema, colTipo, colLinha);
         configurarColunas(colErroLinha, colErroLexema, colErroDescricao);
+
+        // O botão de executar reflete o conteúdo atual da área de código,
+        // não mais só o fato de ter carregado um arquivo — assim tanto faz
+        // se o texto veio de um .txt ou foi digitado/colado na hora.
+        btnExecutar.setDisable(true);
+        areaCodigoFonte.textProperty().addListener((obs, textoAntigo, textoNovo) ->
+                btnExecutar.setDisable(textoNovo == null || textoNovo.trim().isEmpty()));
     }
 
     // Sobrecarga para a tabela principal (4 colunas: #, Lexema, Tipo, Linha).
@@ -100,27 +107,27 @@ public class AnalisadorController implements Initializable {
         }
 
         try {
-            fonteAtual = LeitorArquivoFonte.ler(arquivo.getAbsolutePath());
-            areaCodigoFonte.setText(fonteAtual);
+            String conteudo = LeitorArquivoFonte.ler(arquivo.getAbsolutePath());
+            areaCodigoFonte.setText(conteudo);
+            nomeArquivoCarregado = arquivo.getName();
             labelArquivoAtual.setText(arquivo.getName());
-            btnExecutar.setDisable(false);
-            labelStatus.setText("STATUS: ARQUIVO CARREGADO");
+            labelStatus.setText("Arquivo carregado");
         } catch (IOException e) {
-            labelStatus.setText("STATUS: ERRO AO LER ARQUIVO — " + e.getMessage());
-            fonteAtual = null;
-            btnExecutar.setDisable(true);
+            labelStatus.setText("Erro ao ler arquivo — " + e.getMessage());
+            nomeArquivoCarregado = null;
         }
     }
 
     @FXML
     private void executarAnalise() {
-        if (fonteAtual == null) {
-            labelStatus.setText("STATUS: NENHUM ARQUIVO CARREGADO");
+        String fonte = areaCodigoFonte.getText();
+        if (fonte == null || fonte.trim().isEmpty()) {
+            labelStatus.setText("Não há código para analisar");
             return;
         }
 
         TabelaPalavrasReservadas tabela = new TabelaPalavrasReservadas();
-        AnalisadorLexico lexer = new AnalisadorLexico(fonteAtual, tabela);
+        AnalisadorLexico lexer = new AnalisadorLexico(fonte, tabela);
 
         ObservableList<Token> tokens = FXCollections.observableArrayList();
         Token token;
@@ -139,13 +146,13 @@ public class AnalisadorController implements Initializable {
         }
         tabelaErros.setItems(erros);
 
-        labelContagemTokens.setText("TOKENS: " + ultimosTokens.size());
-        labelContagemErros.setText("ERRORS: " + erros.size());
+        labelContagemTokens.setText("Tokens: " + ultimosTokens.size());
+        labelContagemErros.setText("Erros: " + erros.size());
 
         if (erros.isEmpty()) {
-            labelStatus.setText("STATUS: ANALISE CONCLUIDA — SEM ERROS");
+            labelStatus.setText("Análise concluída — sem erros");
         } else {
-            labelStatus.setText("STATUS: ANALISE CONCLUIDA — " + erros.size() + " ERRO(S) LEXICO(S)");
+            labelStatus.setText("Análise concluída — " + erros.size() + " erro(s) léxico(s)");
         }
         btnSalvarSaida.setDisable(false);
     }
@@ -153,7 +160,7 @@ public class AnalisadorController implements Initializable {
     @FXML
     private void salvarSaida() {
         if (ultimosTokens == null || ultimosTokens.isEmpty()) {
-            labelStatus.setText("STATUS: NENHUM RESULTADO PARA SALVAR");
+            labelStatus.setText("Nenhum resultado para salvar");
             return;
         }
 
@@ -171,18 +178,22 @@ public class AnalisadorController implements Initializable {
 
         try {
             EscritorArquivoSaida.escrever(destino.getAbsolutePath(), ultimosTokens);
-            labelStatus.setText("STATUS: SAIDA SALVA EM " + destino.getName());
+            labelStatus.setText("Saída salva em " + destino.getName());
         } catch (IOException e) {
-            labelStatus.setText("STATUS: ERRO AO SALVAR — " + e.getMessage());
+            labelStatus.setText("Erro ao salvar — " + e.getMessage());
         }
     }
 
     // Sugere "<nomeDoArquivoAberto>_saida.txt", mesma convenção usada por
     // Main.gerarNomeSaida() — mantém consistência com o CLI já existente.
+    // Se o código foi digitado na hora (sem carregar arquivo), usa um nome
+    // genérico em vez de tentar aproveitar o texto de placeholder do label.
     private String sugerirNomeSaida() {
-        String nomeAtual = labelArquivoAtual.getText();
-        int ponto = nomeAtual.lastIndexOf('.');
-        String base = ponto >= 0 ? nomeAtual.substring(0, ponto) : nomeAtual;
+        if (nomeArquivoCarregado == null) {
+            return "saida.txt";
+        }
+        int ponto = nomeArquivoCarregado.lastIndexOf('.');
+        String base = ponto >= 0 ? nomeArquivoCarregado.substring(0, ponto) : nomeArquivoCarregado;
         return base + "_saida.txt";
     }
 }

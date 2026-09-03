@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="700" prefWidth="1000" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minipascal.lexico.gui.AnalisadorController">
+<BorderPane prefHeight="700" prefWidth="1000" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minipascal.lexico.gui.AnalisadorController">
 
     <top>
         <VBox>
@@ -44,7 +44,9 @@
                         <VBox styleClass="painel">
                             <children>
                                 <Label styleClass="titulo-painel" text="Código-Fonte" />
-                                <TextArea fx:id="areaCodigoFonte" editable="false" styleClass="codigo-fonte" wrapText="false" VBox.vgrow="ALWAYS" />
+                                <TextArea fx:id="areaCodigoFonte" editable="true" wrapText="false"
+                                promptText="Cole ou digite o código-fonte aqui, ou clique em Abrir Arquivo..."
+                                styleClass="codigo-fonte" VBox.vgrow="ALWAYS"/>
                             </children>
                         </VBox>
                         <VBox styleClass="painel">
