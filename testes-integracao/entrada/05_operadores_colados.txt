@@ -1,0 +1,23 @@
+/* Teste de operadores e simbolos colados, sem nenhum espaco separando */
+program operadores_colados;
+var x, y, z: integer;
+begin
+x:=1;
+y:=2;
+z:=x+y;
+z:=x-y;
+z:=x*y;
+z:=x/y;
+z:=x mod y;
+z:=x div y;
+x:=x+++y;
+y:=x<=y;
+y:=x<>z;
+y:=x>=z;
+y:=x=z;
+y:=x!=z;
+z:=x**y;
+z:=((x+y)*(x-y));
+x:=-y;
+x:=--y;
+end.

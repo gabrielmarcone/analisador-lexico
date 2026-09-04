@@ -1,0 +1,19 @@
+/* Teste de numeros: formatos validos, invalidos, colados e no limite */
+program numeros_extremos;
+var a, b, c, d, e, f, g: real;
+begin
+a := 0;
+b := 007;
+c := 1.33;
+d := 24.40e-04;
+e := 24.40E+10;
+f := 999999999;
+g := 0.0;
+a := 123abc;
+b := 1.2.3;
+c := .5;
+d := 5e;
+e := 5e+;
+f := 5.0e10x;
+g := 3.14159265358979;
+end.

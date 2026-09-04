@@ -1,0 +1,13 @@
+/* Teste de identificadores/palavras reservadas no limite, mistura de caixa,
+   e um comentario que nunca fecha (proposital, ate o fim do arquivo) */
+Program CasosExtremos;
+VAR total, vars, integer2, beginner, endereco: INTEGER;
+BEGIN
+total := 1;
+vars := 2;
+integer2 := 3;
+beginner := 4;
+endereco := 5;
+umIdentificadorRealmenteMuitoGrandeQueDeveSerTruncadoEmSessentaETresCaracteresParaTestarOLimiteMaximo := 6;
+write(total);
+/* este comentario nunca fecha, e de proposito, para testar recuperacao no fim do arquivo

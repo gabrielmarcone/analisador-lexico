@@ -1,0 +1,13 @@
+/* Teste de comentarios e strings, incluindo casos que travariam um lexer ingenuo */
+program comentarios_e_strings;
+var msg: string;
+begin
+msg := "string normal";
+msg := "string com aspas simples dentro: it's assim mesmo";
+msg := "";
+/* comentario simples */
+/* comentario /* tentando aninhar */ isso aqui vira codigo solto */
+write("antes"); /* comentario no meio da linha */ write("depois");
+msg := "esta string esquece de fechar
+write(msg);
+end.
