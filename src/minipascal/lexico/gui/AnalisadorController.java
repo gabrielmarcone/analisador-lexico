@@ -50,6 +50,7 @@ public class AnalisadorController implements Initializable {
 
     private String nomeArquivoCarregado;
     private ObservableList<Token> ultimosTokens;
+    private final TabelaPalavrasReservadas tabela = new TabelaPalavrasReservadas();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -126,7 +127,6 @@ public class AnalisadorController implements Initializable {
             return;
         }
 
-        TabelaPalavrasReservadas tabela = new TabelaPalavrasReservadas();
         AnalisadorLexico lexer = new AnalisadorLexico(fonte, tabela);
 
         ObservableList<Token> tokens = FXCollections.observableArrayList();
