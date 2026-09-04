@@ -15,7 +15,7 @@
 
 ---
 
-## 📖 Sobre o projeto
+## Sobre o projeto
 
 O **TokenFlow** é um analisador léxico completo para o **Mini_Pascal**, uma linguagem
 simplificada inspirada em Pascal. Ele lê um código-fonte (de um arquivo `.txt` ou digitado
@@ -27,11 +27,11 @@ manualmente (sem geradores de lexer prontos), com tratamento de erros que **repo
 recupera** — um caractere inválido ou uma string mal fechada nunca travam a análise nem
 derrubam o resto do arquivo.
 
-## 📸 Como é
+## Como é
 
 ![Tela do TokenFlow](docs/screenshot.png)
 
-## ✨ Funcionalidades
+## Funcionalidades
 
 - ✅ Reconhece todas as classes léxicas do enunciado: palavra reservada, identificador,
   número inteiro/real (com notação científica), operadores aritméticos/relacionais/lógicos,
@@ -49,7 +49,7 @@ derrubam o resto do arquivo.
   CRLF do Windows, Unicode inválido...)
 - ✅ 7 arquivos de teste de integração, incluindo os exemplos exatos do enunciado
 
-## 🏗️ Arquitetura
+## Arquitetura
 
 O código é dividido em camadas com responsabilidade única — o núcleo léxico não sabe nada
 sobre arquivos ou sobre a interface, o que permite reaproveitá-lo em qualquer um dos dois
@@ -73,7 +73,7 @@ resources/minipascal/lexico/gui/
 └── icon.png           → ícone da janela
 ```
 
-## 🚀 Como rodar
+## Como rodar
 
 ### Pré-requisito
 
@@ -126,7 +126,7 @@ jar cfm TokenFlow.jar manifest.txt -C out .
 java -jar TokenFlow.jar
 ```
 
-## 🧪 Como rodar os testes
+## Como rodar os testes
 
 Cada suíte é uma classe Java independente (sem JUnit), que imprime `[OK]`/`[FALHA]` linha a
 linha e termina com um resumo:
@@ -139,7 +139,7 @@ java -cp out minipascal.lexico.verificacao.VerificacaoFase6     # leitura/escrit
 java -cp out minipascal.lexico.verificacao.VerificacaoAbsurda   # casos extremos/maldosos
 ```
 
-## 📁 Arquivos de teste
+## Arquivos de teste
 
 | Arquivo | O que cobre |
 |---|---|
@@ -151,7 +151,7 @@ java -cp out minipascal.lexico.verificacao.VerificacaoAbsurda   # casos extremos
 | `06_comentarios_e_strings.txt` | Comentário "aninhado", string sem fechar no meio do arquivo |
 | `07_casos_extremos_diversos.txt` | Identificador de 100+ caracteres, palavras reservadas em caixa mista, comentário nunca fechado |
 
-## 📝 Decisões de projeto
+## Decisões de projeto
 
 Algumas leituras do enunciado exigiram uma escolha explícita onde o texto original era
 ambíguo — todas documentadas e testadas:
@@ -166,14 +166,14 @@ ambíguo — todas documentadas e testadas:
   resto do arquivo inteiro
 - **Limite de 63 caracteres em identificador** — o excedente é truncado, não vira erro
 
-## 🎓 Contexto acadêmico
+## Contexto acadêmico
 
 Trabalho da disciplina de **Compiladores**, curso de Ciência da Computação — UESB.
 Corresponde à **Unidade I** (Analisador Léxico). O núcleo (`AnalisadorLexico`) foi projetado
 para ser reaproveitado sem modificações na Unidade II (Analisador Sintático), já que não
 depende de nada relacionado a arquivo ou interface.
 
-## 👥 Autores
+## Autores
 
 <table>
 <tr>
